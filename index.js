@@ -29,10 +29,23 @@ app.post('/Calendar', async (req, res) => {
 })
 
 app.put('/Calendar', async (req, res) => {
-    const eventData = req.body
-    console.log(eventData)
-    const updateEvent = await eventCollection.update(eventData._id, eventData)
-    res.send(updateEvent)
+    try{
+        const eventData = req.body
+        
+        const updateEvent = await eventCollection.update(eventData._id, eventData)
+        console.log(eventData)
+        res.send(updateEvent)
+    }
+    catch(error){
+        console.log(error)
+    }
+
+})
+
+app.delete('/Calendar', async (req, res) => {
+        const eventData = req.body
+        const deleteEvent = await eventCollection.remove(eventData._id)
+        res.send(deleteEvent)
 })
 
 app.listen('3001', () => console.log('running on 3001'))
